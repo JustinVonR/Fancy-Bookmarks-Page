@@ -1,0 +1,17 @@
+{
+    "manifest_version": 2,
+    "name": "Fancy Bookmarks Page",
+    "version": "0.1",
+
+    "description": "Adds a full page bookmark browser with background images, decorative tabs, and more.",
+
+    "icons":{
+        "48": "",
+        "96": ""
+    },
+
+    "permissions": [
+        "bookmarks",
+        "history"
+    ]
+}
