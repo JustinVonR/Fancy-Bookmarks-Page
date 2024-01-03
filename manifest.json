@@ -11,7 +11,8 @@
 
     "permissions": [
         "bookmarks",
-        "history"
+        "history",
+        "storage"
     ],
 
     "browser_action": {
@@ -21,9 +22,20 @@
           }
     },
 
+    "options_ui": {
+        "page": "Settings Page/settings.html",
+        "open_in_tab": false
+      },    
+
     "background": {
         "scripts": ["Background Scripts/main.js"],
         "persistent": false,
         "type": "module"
-      }      
+      },      
+
+      "browser_specific_settings": {
+        "gecko": {
+          "id": "betterbookmarks@jvr.org"
+        }
+      }
 }

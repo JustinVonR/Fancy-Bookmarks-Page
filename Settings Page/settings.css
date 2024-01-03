@@ -1,0 +1,25 @@
+body {
+    background-color: #23222b;
+    color: white;
+    height: min(100vh, 400px);
+} 
+
+#accentColorPicker, #bgColorPicker {
+    box-sizing: border-box;
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+    border-radius: 0px;
+    padding: 0px;
+    border: black;
+    background: black;
+}
+
+h4 {
+    padding: 0;
+    margin: 0;
+}
+
+h3 {
+    text-decoration: underline;
+}

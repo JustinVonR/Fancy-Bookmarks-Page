@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Settings</title>
+    <link rel="stylesheet" href="settings.css">
+    <script type="text/javascript" src="settings.js"></script>
+</head>
+
+<body>
+    <h2>Main Bookmark Page:</h2>
+    <h3>Theme:</h3>
+    <div>
+        <form>
+            <input type="radio" id="light" name="theme" value="LIGHT" checked="checked" onclick="handleThemeChange(this)">
+            <label for="html">Light</label><br>
+            <input type="radio" id="dark" name="theme" value="DARK" onclick="handleThemeChange(this)">
+            <label for="html">Dark</label><br>
+        </form>
+    </div>
+    <h3>Accent Color:</h3>
+    <div class="accentColorPicker">
+        <input type="color" id="accentColorPicker">
+    </div>
+    <h3>Background:</h3>
+    <div class="bgRadio">
+        <h4>Background Type:</h4><br/>
+        <form>
+            <input type="radio" id="bgColorOption" name="theme" value="COLOR" checked="checked" onclick="handleBGChange(this)">
+            <label for="html">Color</label><br>
+            <input type="radio" id="bgImageOption" name="theme" value="IMAGE" onclick="handleBGChange(this)">
+            <label for="html">Image</label><br><br/><br/>
+        </form>
+    </div>
+    <div class="bgFile" style="display:block;">
+        <h4>Background Image File:</h4><br/>
+        <input type="file" id="bgFilePicker">
+        <input type="checkbox" id="darkenBG" name="darkenBG" value="DARKBG" checked="checked">
+        <label for="darkenBG">Darken Background</label>
+    </div>
+    <div class="bgColorPicker" style="display:block;">
+        <h4>Background Color:</h4><br/>
+        <input type="color" id="bgColorPicker">
+    </div>
+</body>
+
+</html>
