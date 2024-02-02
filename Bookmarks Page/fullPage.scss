@@ -1,0 +1,31 @@
+$btn-padding: 1em;
+
+body {
+    display: grid;
+    margin: 0px;
+    grid-template-areas: 
+        "header header"
+        "nav links"
+        "footer footer";
+}
+
+header {
+    grid-area: header;
+    display: flex;
+    justify-content: end;
+}
+
+div.header-btn {
+    padding: $btn-padding;
+}
+
+nav {
+    width: minmax(10px, 25%);
+    grid-area: nav;
+    display: flex;
+    flex-direction: column;
+}
+
+nav div {
+    padding: $btn-padding;
+}

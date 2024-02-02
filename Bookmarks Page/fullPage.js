@@ -1,0 +1,1 @@
+document.querySelectorAll("div").forEach(function(element) {element.style.color = 'green'});
