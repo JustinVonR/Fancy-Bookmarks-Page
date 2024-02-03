@@ -1,17 +1,18 @@
 body {
   display: grid;
   margin: 0px;
-  grid-template-columns: minmax(250px,30%) auto;
-  grid-template-rows: 5% 95%;
+  grid-template-columns: minmax(200px, 20vw) auto;
+  grid-template-rows: minmax(50px, 3vh) auto;
+  height: 100vh;
 }
 
 header {
-  background-color: #353535;
-  grid-area: header;
+  grid-column: 1 3;
+  grid-row: 1 1;
   display: flex;
   justify-content: end;
-  grid-column: 1 2;
-  grid-row: 1 1;
+  background-color: red;
+  color: white;
 }
 
 div.header-btn {
@@ -19,13 +20,12 @@ div.header-btn {
 }
 
 nav {
-  width: minmax(10px, 25%);
-  grid-column: 1 1;
-  grid-row: 2 2;
+  grid-column: 1 2;
+  grid-row: 2 3;
   display: flex;
   flex-direction: column;
-  background-color: #353535;
-  height: 100vh;
+  background-color: blue;
+  color: white;
 }
 
 nav div {
