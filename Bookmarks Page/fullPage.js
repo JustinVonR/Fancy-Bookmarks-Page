@@ -1,1 +1,1 @@
-document.querySelectorAll("div").forEach(function(element) {element.style.color = 'green'});
+console.log("Script Loaded");
