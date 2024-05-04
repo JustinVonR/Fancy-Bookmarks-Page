@@ -1,21 +1,10 @@
-$button-border-color: #202020;
-
-%bar {
-    background-color: #2e2e2e;
-    box-shadow: 0px 0px 5px 5px #1b1b1b;
-}
 
 %bar-btn {
     padding: 0.7em;
-    color: #FFFFFF;
     font-size: 1.2em;
     cursor: pointer;
     transition: 0.25s;
     transition-timing-function: ease-out;
-}
-
-%bar-btn-hover {
-    background-color: #222222;
 }
 
 body {
@@ -28,7 +17,6 @@ body {
 }
 
 header {
-    @extend %bar;
     grid-column: 1 / 3;
     grid-row: 1 ;
     display: flex;
@@ -39,11 +27,6 @@ header {
 
 div.header-btn {
     @extend %bar-btn;
-    border-left: 1px solid $button-border-color;
-}
-
-div.header-btn:hover {
-    @extend %bar-btn-hover;
 }
 
 div.header-text {
@@ -52,7 +35,6 @@ div.header-text {
 }
 
 nav {
-    @extend %bar;
     grid-column: 1;
     grid-row: 2;
     display: flex;
@@ -62,17 +44,11 @@ nav {
 
 nav div {
     @extend %bar-btn;
-    border-bottom: 1px solid $button-border-color;
-}
-
-nav div:hover {
-    @extend %bar-btn-hover;
 }
 
 div.links {
     grid-row: 2;
     grid-column: 2;
-    background-color: darkblue;
     display: grid;
     grid-auto-flow: column;
     grid-gap: 2%;
@@ -82,6 +58,5 @@ div.links {
 div.link {
     width: 190px;
     height: 190px;
-    background-color: #FFFFFF;
     border-radius: 10%;
 }

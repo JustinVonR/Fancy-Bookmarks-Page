@@ -1,0 +1,54 @@
+@import "_bookmarksPage.scss";
+
+$button-border-color: #202020;
+
+%bar {
+    background-color: #2e2e2e;
+    box-shadow: 0px 0px 5px 5px #1b1b1b;
+}
+
+%bar-btn {
+    color: #FFFFFF;
+}
+
+%bar-btn-hover {
+    background-color: #222222;
+}
+
+header {
+    @extend %bar;
+}
+
+div.header-btn {
+    @extend %bar-btn;
+    border-left: 1px solid $button-border-color;
+}
+
+div.header-btn:hover {
+    @extend %bar-btn-hover;
+}
+
+div.header-text {
+    @extend %bar-btn;
+}
+
+nav {
+    @extend %bar;
+}
+
+nav div {
+    @extend %bar-btn;
+    border-bottom: 1px solid $button-border-color;
+}
+
+nav div:hover {
+    @extend %bar-btn-hover;
+}
+
+div.links {
+    background-color: darkblue;
+}
+
+div.link {
+    background-color: #FFFFFF;
+}
