@@ -2,48 +2,43 @@ function onError(error) {
     console.log(error);
 }
 
-
-function handleThemeChange(themeRadio) {
-    browser.storage.sync.set(settings);
-}
-
-async function init() {
-    try {
-        settings= await browser.storage.sync.get({
-            theme: "DARK",
-            accent: "#ce35ce",
-            bgType: "COLOR",
-            bgFile: "No File Selected",
-            bgColor: "#000000"
-        });
-        applyCurrentSettings(settings);
-    } catch (error) {
-        onError(error);
+function restoreSettings(settings) {
+    function setChoices(result) {
+        console.log(result);
+        let theme = result.theme;
+        document.querySelector(`#${theme}`).checked = true;
+        document.querySelector("#accentColorPicker").value = result.accent;
+        document.querySelector("#bgColorPicker").value = result.bgColor;
     }
-    initEventListeners();
-}
 
-function applyCurrentSettings() {
-
-}
-
-function initEventListeners() {
-    let settingsForm = document.getElementsByClassName("settingsForm");
-    settingsForm.addEventListener('change', handleFormChange(target));
-}
-
-function getRadioVal(radioName) {
-    let radioElements = Array.from(document.querySelectorAll(`input[name=${radioName}]`));
-    let value;
-    for (element in radioElements) {
-        if (element.checked) {
-            value = element.value;
-        }
+    function onError(error) {
+        console.log(`Error: ${error}`);
     }
-    return value;
+
+    let getSettings = browser.storage.sync.get();
+    getSettings.then(setChoices, onError);
 }
 
-function handleFormChange(target) {
-    console.log(`The target ${target} was interacted with.`);
+function getTheme() {
+    console.log(document.querySelector("#DARK"));
+    if ( document.querySelector("#DARK").checked ) {
+        console.log("Returning DARK");
+        return "DARK";
+    } else {
+        console.log("Returning LIGHT");
+        return "LIGHT";
+    }
 }
 
+function handleSettingsChange(event) {
+    event.preventDefault();
+    browser.storage.sync.set({
+        theme: getTheme(),
+        accent: document.querySelector("#accentColorPicker").value,
+        bgColor: document.querySelector("#bgColorPicker").value,
+    });
+    console.log("Saving Settings.");
+}
+
+document.querySelector("form").addEventListener("submit", handleSettingsChange);
+document.addEventListener("DOMContentLoaded", restoreSettings);

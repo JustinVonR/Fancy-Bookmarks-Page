@@ -4,7 +4,6 @@
 <head>
     <title>Settings</title>
     <link rel="stylesheet" href="settings.css">
-    <script type="text/javascript" src="settings.js"></script>
 </head>
 
 <body>
@@ -12,9 +11,9 @@
     <form class="settingsForm">
         <h3>Theme:</h3>
         <div>
-            <input type="radio" id="light" name="theme" value="LIGHT" checked="checked">
+            <input type="radio" name="theme" value="LIGHT" id="LIGHT" checked="checked">
             <label for="html">Light</label><br>
-            <input type="radio" id="dark" name="theme" value="DARK">
+            <input type="radio" name="theme" value="DARK" id="DARK">
             <label for="html">Dark</label><br>
         </div>
         <h3>Accent Color:</h3>
@@ -22,11 +21,11 @@
             <input type="color" id="accentColorPicker">
         </div>
         <h3>Background:</h3>
-        <div class="bgRadio">
+        <!-- <div class="bgRadio">
             <h4>Background Type:</h4><br/>
-            <input type="radio" id="bgColorOption" name="bgType" value="COLOR" checked="checked">
+            <input type="radio" id="COLOR" name="bgType" value="COLOR" checked="checked">
             <label for="html">Color</label><br>
-            <input type="radio" id="bgImageOption" name="bgType" value="IMAGE">
+            <input type="radio" id="IMAGE" name="bgType" value="IMAGE">
             <label for="html">Image</label><br><br/><br/>
         </div>
         <div class="bgFile" style="display:block;">
@@ -34,13 +33,16 @@
             <input type="file" id="bgFilePicker">
             <input type="checkbox" id="darkenBG" name="darkenBG" value="DARKBG" checked="checked">
             <label for="darkenBG">Darken Background</label>
-        </div>
+        </div> -->
         <div class="bgColorPicker" style="display:block;">
             <h4>Background Color:</h4><br/>
             <input type="color" id="bgColorPicker">
         </div>
-
+        <div>
+            <button id="save-btn" type="submit">Save Settings</button>
+        </div>
     </form>
+    <script type="text/javascript" src="settings.js"></script>
 </body>
 
 </html>
