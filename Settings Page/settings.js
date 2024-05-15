@@ -22,10 +22,8 @@ function restoreSettings(settings) {
 function getTheme() {
     console.log(document.querySelector("#DARK"));
     if ( document.querySelector("#DARK").checked ) {
-        console.log("Returning DARK");
         return "DARK";
     } else {
-        console.log("Returning LIGHT");
         return "LIGHT";
     }
 }
@@ -37,7 +35,6 @@ function handleSettingsChange(event) {
         accent: document.querySelector("#accentColorPicker").value,
         bgColor: document.querySelector("#bgColorPicker").value,
     });
-    console.log("Saving Settings.");
 }
 
 document.querySelector("form").addEventListener("submit", handleSettingsChange);
