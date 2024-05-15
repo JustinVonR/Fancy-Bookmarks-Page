@@ -4,7 +4,7 @@ $button-border-color: #202020;
 
 %bar {
     background-color: #2e2e2e;
-    box-shadow: 0px 0px 5px 5px #1b1b1b;
+    box-shadow: 0px 0px 3px 3px #00000080;
 }
 
 %bar-btn {
@@ -45,10 +45,12 @@ nav div:hover {
     @extend %bar-btn-hover;
 }
 
-div.links {
-    background-color: darkblue;
+div.link {
+    background-color: #242424;
+    box-shadow: 2px 2px 2px 2px #00000080;
 }
 
-div.link {
-    background-color: #FFFFFF;
+div.link:hover {
+    background-color: #1b1b1b;
+    box-shadow: 1px 1px 1px 1px #00000080;
 }

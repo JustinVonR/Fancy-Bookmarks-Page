@@ -13,7 +13,8 @@ body {
     grid-template-columns: minmax(200px, 20vw) auto;
     grid-template-rows: minmax(50px, 3vh) auto;
     height: 100vh;
-    font-family: Arial, Helvetica, sans-serif
+    width: 100vw;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -21,8 +22,10 @@ header {
     grid-row: 1 ;
     display: flex;
     justify-content: end;
+    width: 100vw;
     z-index: 2;
     justify-content: space-between;
+    font-weight: bold;
 }
 
 div.header-btn {
@@ -40,23 +43,41 @@ nav {
     display: flex;
     flex-direction: column;
     z-index: 1;
+    height: 100%;
 }
 
 nav div {
     @extend %bar-btn;
 }
 
+div.link-region {
+    padding: 3%;
+    overflow: scroll;
+}
+
 div.links {
+    margin-top: auto;
     grid-row: 2;
     grid-column: 2;
     display: grid;
-    grid-auto-flow: column;
-    grid-gap: 2%;
-    padding: 4%;
+    grid-auto-flow: dense;
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, 190px);
+    grid-template-rows: repeat(auto-fill, 190px);
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
 }
 
 div.link {
     width: 190px;
     height: 190px;
-    border-radius: 10%;
+    border-radius: 15%;
+    transition: 0.3s;
+}
+
+div.link:hover {
+    cursor: pointer;
 }
