@@ -2,24 +2,61 @@ body {
     background-color: #23222b;
     color: white;
     height: min(100vh, 400px);
+    font-family: sans-serif;
 } 
 
 #accentColorPicker, #bgColorPicker {
-    box-sizing: border-box;
-    height: 40px;
-    width: 40px;
-    margin: 5px;
-    border-radius: 0px;
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+    border-radius: 20%;
     padding: 0px;
-    border: black;
-    background: black;
+    border: 2px solid white;
 }
 
 h4 {
     padding: 0;
     margin: 0;
+    color: #aaaaaa;
 }
 
 h3 {
-    text-decoration: underline;
+    text-decoration: none;
+    margin-top: 0px;
+}
+
+div.settingBlk {
+    background-color: #111111;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+}
+
+button {
+    border: 1px solid black;
+    height: 25px;
+    width: 200px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: #717171;
+    color: white;
+}
+
+button:hover {
+    background-color: #7c7c7c;
+}
+
+button:active {
+    background-color: #666666;
+}
+
+select {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #23222b;
+    color: white;
+}
+
+select:hover {
+    background-color: #2e2c38;
 }

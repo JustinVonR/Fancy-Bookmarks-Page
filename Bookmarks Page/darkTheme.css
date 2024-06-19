@@ -59,6 +59,7 @@ div.links {
   align-items: center;
   justify-content: center;
   vertical-align: middle;
+  place-items: center;
 }
 
 div.link {
@@ -66,10 +67,23 @@ div.link {
   height: 190px;
   border-radius: 15%;
   transition: 0.3s;
+  align-content: center;
+  text-decoration: none;
+  halign: center;
+  text-align: center;
 }
 
 div.link:hover {
   cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.gear-icon {
+  width: 50px;
+  height: 50px;
 }
 
 nav, header {
@@ -101,4 +115,6 @@ div.link {
 div.link:hover {
   background-color: #1b1b1b;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5019607843);
-}/*# sourceMappingURL=darkTheme.css.map */
+}
+
+/*# sourceMappingURL=darkTheme.css.map */

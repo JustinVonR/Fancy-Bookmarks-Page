@@ -69,6 +69,7 @@ div.links {
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+    place-items: center;
 }
 
 div.link {
@@ -76,8 +77,21 @@ div.link {
     height: 190px;
     border-radius: 15%;
     transition: 0.3s;
-}
+    align-content: center;
+    text-decoration: none;
+    halign: center;
+    text-align: center;
+} 
 
 div.link:hover {
     cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+.gear-icon {
+    width: 50px;
+    height: 50px;
 }

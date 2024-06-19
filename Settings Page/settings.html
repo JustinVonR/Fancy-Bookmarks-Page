@@ -2,41 +2,56 @@
 <html>
 
 <head>
-    <title>Settings</title>
+    <title>Bookmark Page Settings</title>
     <link rel="stylesheet" href="settings.css">
 </head>
 
 <body>
-    <h2>Main Bookmark Page:</h2>
-    <form class="settingsForm">
-        <h3>Theme:</h3>
-        <div>
-            <input type="radio" name="theme" value="LIGHT" id="LIGHT" checked="checked">
-            <label for="html">Light</label><br>
-            <input type="radio" name="theme" value="DARK" id="DARK">
-            <label for="html">Dark</label><br>
+    <h2>Bookmark Page Settings:</h2>
+    <form class="settngsForm">
+        <div class="settingBlk">
+            <h3>Colors:</h3>
+            <h4>Theme:</h4>
+            <div>
+                <input type="radio" name="theme" value="LIGHT" id="LIGHT" checked="checked">
+                <label for="html">Light</label><br>
+                <input type="radio" name="theme" value="DARK" id="DARK">
+                <label for="html">Dark</label><br>
+            </div>
+            <br/>
+            <h4>Accent Color:</h4><br/>
+            <div class="accentColorPicker">
+                <input type="color" id="accentColorPicker">
+            </div>
         </div>
-        <h3>Accent Color:</h3>
-        <div class="accentColorPicker">
-            <input type="color" id="accentColorPicker">
+        <div class="settingBlk">
+            <h3>Background:</h3>
+            <!-- <div class="bgRadio">
+                <h4>Background Type:</h4><br/>
+                <input type="radio" id="COLOR" name="bgType" value="COLOR" checked="checked">
+                <label for="html">Color</label><br>
+                <input type="radio" id="IMAGE" name="bgType" value="IMAGE">
+                <label for="html">Image</label><br><br/><br/>
+            </div>
+            <div class="bgFile" style="display:block;">
+                <h4>Background Image File:</h4><br/>
+                <input type="file" id="bgFilePicker">
+                <input type="checkbox" id="darkenBG" name="darkenBG" value="DARKBG" checked="checked">
+                <label for="darkenBG">Darken Background</label>
+            </div> -->
+            <div class="bgColorPicker" style="display:block;">
+                <h4>Background Color:</h4><br/>
+                <input type="color" id="bgColorPicker">
+            </div>
         </div>
-        <h3>Background:</h3>
-        <!-- <div class="bgRadio">
-            <h4>Background Type:</h4><br/>
-            <input type="radio" id="COLOR" name="bgType" value="COLOR" checked="checked">
-            <label for="html">Color</label><br>
-            <input type="radio" id="IMAGE" name="bgType" value="IMAGE">
-            <label for="html">Image</label><br><br/><br/>
-        </div>
-        <div class="bgFile" style="display:block;">
-            <h4>Background Image File:</h4><br/>
-            <input type="file" id="bgFilePicker">
-            <input type="checkbox" id="darkenBG" name="darkenBG" value="DARKBG" checked="checked">
-            <label for="darkenBG">Darken Background</label>
-        </div> -->
-        <div class="bgColorPicker" style="display:block;">
-            <h4>Background Color:</h4><br/>
-            <input type="color" id="bgColorPicker">
+        <div class="settingBlk">
+            <h3>Starting Bookmark Location</h3>
+            <select name="Starting Location" id="location">
+                    <option value="toolbar">Bookmarks Bar</option>
+                    <option value="menu">Bookmarks Menu</option>
+                    <option value="mobile">Mobile Bookmarks</option>
+                    <option value="unfiled">Unfiled Bookmarks</option>
+            </select>
         </div>
         <div>
             <button id="save-btn" type="submit">Save Settings</button>
