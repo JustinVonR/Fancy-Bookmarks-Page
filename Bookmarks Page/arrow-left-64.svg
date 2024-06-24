@@ -4,9 +4,11 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
 <svg
-   viewBox="0 0 64 64"
+   viewBox="0 0 32 32"
    version="1.1"
    id="svg10"
+   width="32"
+   height="32"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
@@ -47,16 +49,8 @@
 		display: none;
 	}
 </style>
-  <g
-     id="layer1">
-    <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:7.387;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
-       d="M 19.978284,4.9258475 40.969523,28.302502 a 5.0718756,5.0718756 89.736765 0 1 0.03098,6.742472 L 19.943326,58.932998"
-       id="path10"
-       transform="matrix(-1,0,0,1,47.378005,0.07057725)" />
-    <path
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:7.387;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
-       d="M 5.9557733,32 H 57.917903 v 0"
-       id="path11" />
-  </g>
+  <path
+     d="M 14.0044 3.09116 L 3.84128 14.4092 C 3.00903 15.336 3.00258 16.7392 3.82628 17.6736 L 14.0213 29.2392 M 3.6221 16.1652 L 28.78 16.1652 L 28.78 16.1652"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:3.57648;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+     id="layer1" />
 </svg>
