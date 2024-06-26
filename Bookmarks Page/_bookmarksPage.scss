@@ -1,4 +1,3 @@
-
 %bar-btn {
     padding: 0.7em;
     font-size: 1.2em;
@@ -19,7 +18,7 @@ body {
 
 header {
     grid-column: 1 / 3;
-    grid-row: 1 ;
+    grid-row: 1;
     display: flex;
     justify-content: end;
     width: 100vw;
@@ -30,11 +29,15 @@ header {
 
 div.header-btn {
     @extend %bar-btn;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 div.header-text {
     @extend %bar-btn;
     border: none;
+    cursor: default;
 }
 
 nav {
@@ -81,7 +84,7 @@ div.link {
     text-decoration: none;
     halign: center;
     text-align: center;
-} 
+}
 
 div.link:hover {
     cursor: pointer;

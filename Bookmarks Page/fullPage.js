@@ -1,7 +1,8 @@
-BOOKMARK_TREE = null;
-TREE_POSITION = [];
+let settings;
+currBookmarkTree = null;
+currTreePos = [];
 
-function loadTheming() {
+async function loadSettings() {
     function applySettings(result) {
         //Apply the correct stylesheet for the selected theme:
         let styleLink = document.createElement("link");
@@ -12,16 +13,21 @@ function loadTheming() {
         } else {
             styleLink.href = "lightTheme.css";
         }
-        document.head.appendChild( styleLink );
-
-        console.log(document.querySelector("div.links"));
-        document.querySelector("div.link-region").style = `background-color: ${result.bgColor}`;
-        linkTiles = document.querySelectorAll("div.link");
-        linkTiles.forEach(element => {
-            element.style = `color: ${result.accent}`
-        });
+        document.head.appendChild(styleLink);
+        
+        userStyles = document.createElement("style");
+        userStyles.innerHTML = ` 
+            .usr-accent-text {color: ${result.accent};} 
+            .usr-accent-bg {background-color: ${result.accent};}
+            .usr-background-color {background-color: ${result.bgColor};}
+            .usr-accent-bg:hover {background-color: ${result.accentHover};}
+            .usr-accent-text:hover {color: ${result.accentHover};}
+        `;
+        document.head.appendChild(userStyles);
 
         //document.querySelector(".selected").style = `background-color: ${result.accent}`;
+        startLocation = result.startLocation;
+        console.log(`Set start location to: ${result.startLocation}`);
     }
 
     function onSettingsError(error) {
@@ -29,10 +35,11 @@ function loadTheming() {
     }
     let getSettings = browser.storage.sync.get();
     getSettings.then(applySettings, onSettingsError);
+    console.log("Does this run first?");
 }
 
 function displayBookmarks() {
-    currDisplayNode = TREE_POSITION[TREE_POSITION.length - 1];
+    currDisplayNode = currTreePos[currTreePos.length - 1];
     linksDiv = document.querySelector("div.links");
     linksDiv.innerHTML = '';
     for (i = 0; i < currDisplayNode.children.length; i++) {
@@ -44,7 +51,7 @@ function displayBookmarks() {
             newLink.target = "_blank";
             newSpan.innerHTML = currDisplayNode.children[i].title;
             newTile.appendChild(newSpan);
-            newTile.className = "link";
+            newTile.className = "link usr-accent-text";
             newLink.appendChild(newTile);
             linksDiv.appendChild(newLink);
         }
@@ -52,28 +59,30 @@ function displayBookmarks() {
     loadTheming();
 }
 
+
 function displaySubfolders() {
-    currDisplayNode = TREE_POSITION[TREE_POSITION.length - 1];
+    currDisplayNode = [currTreePos.length - 1];
     headerText = document.querySelector(".header-text");
     headerText.innerHTML = "";
-    if (TREE_POSITION.length > 2) {
-        console.log(TREE_POSITION);
-        for (i = 1; i < TREE_POSITION.length - 1; i++) {
-            headerText.innerHTML += TREE_POSITION[i].title + " > ";
+    if (currTreePos.length > 2) {
+        console.log(currTreePos);
+        for (i = 1; i < currTreePos.length - 1; i++) {
+            headerText.innerHTML += currTreePos[i].title + " > ";
         }
     }
-    headerText.innerHTML += TREE_POSITION[TREE_POSITION.length - 1].title;
+    headerText.innerHTML += currTreePos[currTreePos.length - 1].title;
     
     nav = document.querySelector("nav");
     nav.innerHTML = "";
-    if (TREE_POSITION.length > 1) {
+    if (currTreePos.length > 1) {
         backDiv = document.createElement("div");
-        backDiv.class = "nav";
+        backDiv.className = "nav usr-accent-bg";
+        console.log("set class of back element");
         backDiv.innerHTML = "< Back";
         nav.appendChild(backDiv);
         backDiv.addEventListener('click', function() {
             console.log("going back");
-            TREE_POSITION.pop();
+            currTreePos.pop();
             displayBookmarks();
             displaySubfolders();
         });
@@ -81,13 +90,13 @@ function displaySubfolders() {
     for (i = 0; i < currDisplayNode.children.length; i++) {
         if (currDisplayNode.children[i].type == "folder") {
             newDiv = document.createElement("div");
-            newDiv.class = "nav";
+            newDiv.className = "nav";
             newDiv.innerHTML = currDisplayNode.children[i].title;
             nav.appendChild(newDiv);
             newDiv.id = i;
             newDiv.addEventListener('click', function(event) {
                 console.log(event);
-                TREE_POSITION.push(TREE_POSITION[TREE_POSITION.length - 1].children[event.target.id]);
+                currTreePos.push(currTreePos[currTreePos.length - 1].children[event.target.id]);
                 displayBookmarks();
                 displaySubfolders();
             });
@@ -98,17 +107,25 @@ function displaySubfolders() {
 function storeCurrentBookmarks(bookmarkTree) {
     console.log("Successfully obtained bookmark tree:");
     console.log(bookmarkTree[0]);
-    BOOKMARK_TREE = 0
-    TREE_POSITION = [bookmarkTree[0]];
-    // TODO: Add switch to determine starting location dynamically from settings.
-    TREE_POSITION.push(TREE_POSITION[0].children[1]);
-    console.log(TREE_POSITION.length);
+    currBookmarkTree = 0
+    currTreePos = [bookmarkTree[0]];
+    if (startLocation == "toolbar") {
+        currTreePos.push(currTreePos[0].children[1]);
+    } else if (startLocation == "menu") {
+        currTreePos.push(currTreePos[0].children[0]);
+    } else if (startLocation == "mobile") {
+        currTreePos.push(currTreePos[0].children[3]);
+    } else {
+        currTreePos.push(currTreePos[0].children[2]);
+    }
+    console.log(currTreePos.length);
     console.log("Set position in tree to:");
-    console.log(TREE_POSITION[TREE_POSITION.length - 1]);
-    displaySubfolders();
+    console.log(currTreePos[currTreePos.length - 1]);
+    //displaySubfolders();
     displayBookmarks();
 }
 
+//TODO: Split bookmark handling into separate imported class.
 function loadBookmarkTree() {
     function onFail(error) {
         console.log(`Error with bookmark loading: ${error}`);
@@ -151,4 +168,10 @@ browser.bookmarks.onCreated.addListener(refreshPage);
 browser.bookmarks.onMoved.addListener(refreshPage);
 browser.bookmarks.onRemoved.addListener(refreshPage);
 
+try {
+    settings = await browser.storage.sync.get();
+} catch (e) {
+    console.log(`Error while getting settings from browser sync storage: ${e}`);
+    document.querySelector("div.link-region").innerHTML = "Error Getting Settings";
+}
 loadBookmarkTree();

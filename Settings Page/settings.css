@@ -3,9 +3,11 @@ body {
     color: white;
     height: min(100vh, 400px);
     font-family: sans-serif;
-} 
+}
 
-#accentColorPicker, #bgColorPicker {
+#accentColorPicker,
+#bgColorPicker,
+#accentHoverColorPicker {
     height: 50px;
     width: 50px;
     margin: 0px;

@@ -27,8 +27,15 @@ header {
   font-weight: bold;
 }
 
+div.header-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 div.header-text {
   border: none;
+  cursor: default;
 }
 
 nav {

@@ -23,6 +23,8 @@ function setDefaults(settings) {
       theme: "DARK",
       accent: "#3584e4",
       bgColor: "#16002b",
+      accentHover: "#4D3CC9",
+      startLocation: "toolbar",
     });
   }
 }

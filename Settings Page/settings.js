@@ -9,6 +9,8 @@ function restoreSettings(settings) {
         document.querySelector(`#${theme}`).checked = true;
         document.querySelector("#accentColorPicker").value = result.accent;
         document.querySelector("#bgColorPicker").value = result.bgColor;
+        document.querySelector("#accentHoverColorPicker").value = result.accentHover;
+        document.querySelector("#location").value = result.startLocation;
     }
 
     function onError(error) {
@@ -34,6 +36,8 @@ function handleSettingsChange(event) {
         theme: getTheme(),
         accent: document.querySelector("#accentColorPicker").value,
         bgColor: document.querySelector("#bgColorPicker").value,
+        accentHover: document.querySelector("#accentHoverColorPicker").value,
+        startLocation: document.querySelector("#location").value,
     });
 }
 
