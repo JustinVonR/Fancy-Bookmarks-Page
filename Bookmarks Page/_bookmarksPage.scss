@@ -1,9 +1,11 @@
 %bar-btn {
-    padding: 0.7em;
+    padding: 0.3em;
     font-size: 1.2em;
     cursor: pointer;
     transition: 0.25s;
     transition-timing-function: ease-out;
+    display: flex;
+    align-items: center;
 }
 
 body {
@@ -53,6 +55,13 @@ nav div {
     @extend %bar-btn;
 }
 
+.back {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: white;
+}
+
 div.link-region {
     padding: 3%;
     overflow: scroll;
@@ -82,7 +91,6 @@ div.link {
     transition: 0.3s;
     align-content: center;
     text-decoration: none;
-    halign: center;
     text-align: center;
 }
 

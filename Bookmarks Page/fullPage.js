@@ -1,177 +1,165 @@
-let settings;
-currBookmarkTree = null;
-currTreePos = [];
+let currTreePos = [];
+let iconThemePostfix = "";
 
-async function loadSettings() {
-    function applySettings(result) {
+/*
+ * Gets settings for user selected colors from sync storage and applies stylesheets for the user's colors.
+*/
+async function loadThemeSettings() {
+    try {
+        //Get the relevant settings from browser storage
+        let settings = await browser.storage.sync.get(["theme","accent","bgColor","accentHover"]);
         //Apply the correct stylesheet for the selected theme:
-        let styleLink = document.createElement("link");
-        styleLink.rel = "stylesheet";
-        styleLink.type = "text/css";
-        if (result.theme == "DARK") {
-            styleLink.href = "darkTheme.css";
+        let stylesheet = document.createElement("link");
+        stylesheet.rel = "stylesheet";
+        stylesheet.type = "text/css";
+        if (settings.theme == "DARK") {
+            stylesheet.href = "darkTheme.css";
+            iconThemePostfix = "-dark";
         } else {
-            styleLink.href = "lightTheme.css";
+            stylesheet.href = "lightTheme.css";
         }
-        document.head.appendChild(styleLink);
-        
-        userStyles = document.createElement("style");
+        document.head.appendChild(stylesheet);
+
+        //Insert stylesheet with color values defined by the user into the document's head.
+        let userStyles = document.createElement("style");
         userStyles.innerHTML = ` 
-            .usr-accent-text {color: ${result.accent};} 
-            .usr-accent-bg {background-color: ${result.accent};}
-            .usr-background-color {background-color: ${result.bgColor};}
-            .usr-accent-bg:hover {background-color: ${result.accentHover};}
-            .usr-accent-text:hover {color: ${result.accentHover};}
+            .usr-accent-text {color: ${settings.accent};} 
+            .usr-accent-bg {background-color: ${settings.accent};}
+            .usr-background-color {background-color: ${settings.bgColor};}
+            .usr-accent-bg:hover {background-color: ${settings.accentHover};}
+            .usr-accent-text:hover {color: ${settings.accentHover};}
         `;
         document.head.appendChild(userStyles);
-
-        //document.querySelector(".selected").style = `background-color: ${result.accent}`;
-        startLocation = result.startLocation;
-        console.log(`Set start location to: ${result.startLocation}`);
+        document.querySelector(".gear").src = `gear${iconThemePostfix}.svg`;
+    } catch (exception) {
+        console.log(`Error while loading user color settings: ${exception}`);
     }
-
-    function onSettingsError(error) {
-        console.log(`Error while getting settings: \n ${error}`);
-    }
-    let getSettings = browser.storage.sync.get();
-    getSettings.then(applySettings, onSettingsError);
-    console.log("Does this run first?");
 }
 
-function displayBookmarks() {
-    currDisplayNode = currTreePos[currTreePos.length - 1];
+async function displayBookmarks(currNodeChildren) {
     linksDiv = document.querySelector("div.links");
     linksDiv.innerHTML = '';
-    for (i = 0; i < currDisplayNode.children.length; i++) {
-        if (currDisplayNode.children[i].type == "bookmark") {
+    for (i = 0; i < currNodeChildren.length; i++) {
+        if (currNodeChildren[i].type == "bookmark") {
             newLink = document.createElement("a");
             newTile = document.createElement("div");
             newSpan = document.createElement("span");
-            newLink.href = currDisplayNode.children[i].url;
+            newLink.href = currNodeChildren[i].url;
             newLink.target = "_blank";
-            newSpan.innerHTML = currDisplayNode.children[i].title;
+            newSpan.innerHTML = currNodeChildren[i].title;
             newTile.appendChild(newSpan);
             newTile.className = "link usr-accent-text";
             newLink.appendChild(newTile);
             linksDiv.appendChild(newLink);
         }
     }
-    loadTheming();
 }
 
 
-function displaySubfolders() {
-    currDisplayNode = [currTreePos.length - 1];
+async function displaySubfolders(currNode, currNodeChildren) {
     headerText = document.querySelector(".header-text");
     headerText.innerHTML = "";
-    if (currTreePos.length > 2) {
+    if (currTreePos.length > 1) {
+        console.log("currTreePos:");
         console.log(currTreePos);
-        for (i = 1; i < currTreePos.length - 1; i++) {
-            headerText.innerHTML += currTreePos[i].title + " > ";
+        for (i = 1; i < currTreePos.length - 1; i++){
+            let node = await browser.bookmarks.get(currTreePos[i]);
+            console.log("Node Processed for Title:");
+            console.log(node);
+            headerText.innerHTML += node[0].title + `&nbsp;&nbsp;<img src=\"arrow-right${iconThemePostfix}-32.svg\" width=\"20px\" alt=\"Settings\" title=\"Settings\"/>&nbsp;&nbsp;`;
         }
     }
-    headerText.innerHTML += currTreePos[currTreePos.length - 1].title;
-    
+    headerText.innerHTML += currNode.title;
+
     nav = document.querySelector("nav");
     nav.innerHTML = "";
     if (currTreePos.length > 1) {
         backDiv = document.createElement("div");
-        backDiv.className = "nav usr-accent-bg";
-        console.log("set class of back element");
-        backDiv.innerHTML = "< Back";
+        backDiv.className = "nav usr-accent-bg back";
+        backDiv.innerHTML = `<img src=\"arrow-left-dark-32.svg\" width=\"20px\" alt=\"Settings\" title=\"Settings\"/>&nbsp;&nbsp;Back`;
         nav.appendChild(backDiv);
         backDiv.addEventListener('click', function() {
-            console.log("going back");
             currTreePos.pop();
-            displayBookmarks();
-            displaySubfolders();
+            loadBookmarks();
         });
     }
-    for (i = 0; i < currDisplayNode.children.length; i++) {
-        if (currDisplayNode.children[i].type == "folder") {
+    for (i = 0; i < currNodeChildren.length; i++) {
+        if (currNodeChildren[i].type == "folder") {
             newDiv = document.createElement("div");
             newDiv.className = "nav";
-            newDiv.innerHTML = currDisplayNode.children[i].title;
+            newDiv.innerHTML = currNodeChildren[i].title;
             nav.appendChild(newDiv);
-            newDiv.id = i;
+            newDiv.id = currNodeChildren[i].id;
             newDiv.addEventListener('click', function(event) {
-                console.log(event);
-                currTreePos.push(currTreePos[currTreePos.length - 1].children[event.target.id]);
-                displayBookmarks();
-                displaySubfolders();
+                currTreePos.push(event.target.id);
+                loadBookmarks();
             });
         }
     }
 }
 
-function storeCurrentBookmarks(bookmarkTree) {
-    console.log("Successfully obtained bookmark tree:");
-    console.log(bookmarkTree[0]);
-    currBookmarkTree = 0
-    currTreePos = [bookmarkTree[0]];
-    if (startLocation == "toolbar") {
-        currTreePos.push(currTreePos[0].children[1]);
-    } else if (startLocation == "menu") {
-        currTreePos.push(currTreePos[0].children[0]);
-    } else if (startLocation == "mobile") {
-        currTreePos.push(currTreePos[0].children[3]);
-    } else {
-        currTreePos.push(currTreePos[0].children[2]);
-    }
-    console.log(currTreePos.length);
-    console.log("Set position in tree to:");
-    console.log(currTreePos[currTreePos.length - 1]);
-    //displaySubfolders();
-    displayBookmarks();
+/*
+ * Sets the start location based on the user's settings and loads the correct bookmarks folder.
+*/
+async function loadBookmarks() {
+    let currNode = await browser.bookmarks.get(currTreePos[currTreePos.length - 1]);
+    let currNodeChildren = await browser.bookmarks.getChildren(currTreePos[currTreePos.length - 1]);
+    currNode = currNode[0];
+    displayBookmarks(currNodeChildren);
+    displaySubfolders(currNode, currNodeChildren);
 }
 
-//TODO: Split bookmark handling into separate imported class.
-function loadBookmarkTree() {
-    function onFail(error) {
-        console.log(`Error with bookmark loading: ${error}`);
+/*
+ * Sets the first two bookmark object ids to reach the user's selected start folder in the bookmark tree.
+ */
+async function setStartLocation() {
+    let startLocation = await browser.storage.sync.get("startLocation");
+    startLocation = startLocation.startLocation;
+    bookmarkTree = await browser.bookmarks.getTree();
+    bookmarkTree = bookmarkTree[0];
+    currTreePos.push(bookmarkTree.id);
+    switch (startLocation) {
+        case "toolbar":
+            currTreePos.push(bookmarkTree.children[1].id);
+            break;
+        case "menu":
+            currTreePos.push(bookmarkTree.children[0].id);
+            break;
+        case "mobile":
+            currTreePos.push(bookmarkTree.children[3].id);
+            break;
+        case "unfiled":
+            currTreePos.push(bookmarkTree.children[2].id);
+            break;
+        default:
+            break;
     }
-
-    let getBookmarkTree = browser.bookmarks.getTree();
-    getBookmarkTree.then(storeCurrentBookmarks, onFail);
 }
 
-function handleSettingsBtn() {
+//Opens the extension's preference page in a new tab.
+function openSettingsTab() {
     let openSettings = browser.tabs.create({
       url: "/Settings Page/settings.html",
     });
-
     function onCreated() {
-      consols.log("Created Settings Page");
+      console.log("Created Settings Page");
     }
-
     function onError(error) {
       console.log(`Error while opening reloadPagesettings page: ${error}`);
     }
-
     creating.then(onCreated, onError);
 }
 
-// TODO: Update this code so that only bookmark data is refreshed instead of 
-// entire page.
-function refreshPage() {
-    loadBookmarkTree();
-    loadTheming();
+//Loads settings and bookmark data asynchronously to ensure correct order of loading.
+// TODO: Add proper error handling to this function
+async function loadPageContent() {
+    await setStartLocation();
+    loadThemeSettings();
+    loadBookmarks();
 }
 
-document.addEventListener("DOMContentLoaded", loadTheming);
+//Load settings and bookmarks after DOM content is loaded:
+document.addEventListener("DOMContentLoaded", loadPageContent);
 
-document.querySelector(".settings-btn").addEventListener("click", handleSettingsBtn);
-
-//Add listeners to reload for any change to bookmark tree:
-browser.bookmarks.onChanged.addListener(refreshPage);
-browser.bookmarks.onCreated.addListener(refreshPage);
-browser.bookmarks.onMoved.addListener(refreshPage);
-browser.bookmarks.onRemoved.addListener(refreshPage);
-
-try {
-    settings = await browser.storage.sync.get();
-} catch (e) {
-    console.log(`Error while getting settings from browser sync storage: ${e}`);
-    document.querySelector("div.link-region").innerHTML = "Error Getting Settings";
-}
-loadBookmarkTree();
+//Add listener to open extension preferences when the settings button in the header is clicked:
+document.querySelector(".settings-btn").addEventListener("click", openSettingsTab);

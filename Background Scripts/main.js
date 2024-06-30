@@ -4,7 +4,6 @@ browser.browserAction.onClicked.addListener(() => {
     });
 
     function onCreated() {
-      console.log("Created Bookmarks Page");
     }
 
     function onError(error) {
@@ -13,8 +12,6 @@ browser.browserAction.onClicked.addListener(() => {
 
     creating.then(onCreated, onError);
   });
-
-console.log("running background script");
 
 function setDefaults(settings) {
   if (typeof settings.theme === 'undefined' || typeof settings.accent === 'undefined' || typeof settings.bgColor === 'undefined') {
