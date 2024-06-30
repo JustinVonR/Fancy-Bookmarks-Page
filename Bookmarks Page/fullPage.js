@@ -1,9 +1,7 @@
 let currTreePos = [];
 let iconThemePostfix = "";
 
-/*
- * Gets settings for user selected colors from sync storage and applies stylesheets for the user's colors.
-*/
+/* Gets settings for user selected colors from sync storage and applies stylesheets for the user's colors. */
 async function loadThemeSettings() {
     try {
         //Get the relevant settings from browser storage
@@ -36,6 +34,7 @@ async function loadThemeSettings() {
     }
 }
 
+/* Adds all of the bookmarks within currNodeChildren to the page as clickable divs */
 async function displayBookmarks(currNodeChildren) {
     linksDiv = document.querySelector("div.links");
     linksDiv.innerHTML = '';
@@ -55,8 +54,9 @@ async function displayBookmarks(currNodeChildren) {
     }
 }
 
-
+/* Sets the path text in the header based on currNode and displays all of the subfolders of currNodeChildren in the nav of the page */
 async function displaySubfolders(currNode, currNodeChildren) {
+    // Set the header text to show the path to the current folder, using svg arrows to separate titles
     headerText = document.querySelector(".header-text");
     headerText.innerHTML = "";
     if (currTreePos.length > 1) {
@@ -70,7 +70,8 @@ async function displaySubfolders(currNode, currNodeChildren) {
         }
     }
     headerText.innerHTML += currNode.title;
-
+    
+    // Generate a back button if deep enough in bookmark tree.
     nav = document.querySelector("nav");
     nav.innerHTML = "";
     if (currTreePos.length > 1) {
@@ -83,6 +84,8 @@ async function displaySubfolders(currNode, currNodeChildren) {
             loadBookmarks();
         });
     }
+
+    // Generate nav elements for all subfolders within currNodeCHildren.
     for (i = 0; i < currNodeChildren.length; i++) {
         if (currNodeChildren[i].type == "folder") {
             newDiv = document.createElement("div");
@@ -98,20 +101,20 @@ async function displaySubfolders(currNode, currNodeChildren) {
     }
 }
 
-/*
- * Sets the start location based on the user's settings and loads the correct bookmarks folder.
-*/
+/* Loads the browser's bookmark tree and calls for its display on the page */
 async function loadBookmarks() {
-    let currNode = await browser.bookmarks.get(currTreePos[currTreePos.length - 1]);
-    let currNodeChildren = await browser.bookmarks.getChildren(currTreePos[currTreePos.length - 1]);
-    currNode = currNode[0];
-    displayBookmarks(currNodeChildren);
-    displaySubfolders(currNode, currNodeChildren);
+    try {
+        let currNode = await browser.bookmarks.get(currTreePos[currTreePos.length - 1]);
+        let currNodeChildren = await browser.bookmarks.getChildren(currTreePos[currTreePos.length - 1]);
+        currNode = currNode[0];
+        displayBookmarks(currNodeChildren);
+        displaySubfolders(currNode, currNodeChildren);
+    } catch (e) {
+        console.log(`Error while loading and displaying bookmarks: ${e}`);
+    }
 }
 
-/*
- * Sets the first two bookmark object ids to reach the user's selected start folder in the bookmark tree.
- */
+/* Sets the first two bookmark object ids to reach the user's selected start folder in the bookmark tree */
 async function setStartLocation() {
     let startLocation = await browser.storage.sync.get("startLocation");
     startLocation = startLocation.startLocation;
@@ -136,30 +139,29 @@ async function setStartLocation() {
     }
 }
 
-//Opens the extension's preference page in a new tab.
+/* Opens the extension's preference page in a new tab */
 function openSettingsTab() {
     let openSettings = browser.tabs.create({
       url: "/Settings Page/settings.html",
     });
     function onCreated() {
-      console.log("Created Settings Page");
+      console.log("Created Settings page");
     }
     function onError(error) {
-      console.log(`Error while opening reloadPagesettings page: ${error}`);
+      console.log(`Error while opening settings page: ${error}`);
     }
-    creating.then(onCreated, onError);
+    openSettings.then(onCreated, onError);
 }
 
-//Loads settings and bookmark data asynchronously to ensure correct order of loading.
-// TODO: Add proper error handling to this function
+/* Loads settings and bookmark data asynchronously to ensure correct order of loading */
 async function loadPageContent() {
     await setStartLocation();
     loadThemeSettings();
     loadBookmarks();
 }
 
-//Load settings and bookmarks after DOM content is loaded:
+//Load settings and bookmarks after DOM content is loaded; Rest of page's logic starts from here
 document.addEventListener("DOMContentLoaded", loadPageContent);
 
-//Add listener to open extension preferences when the settings button in the header is clicked:
+//Add listener to open extension preferences when the settings button in the header is clicked
 document.querySelector(".settings-btn").addEventListener("click", openSettingsTab);

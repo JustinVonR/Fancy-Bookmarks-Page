@@ -1,7 +1,4 @@
-function onError(error) {
-    console.log(error);
-}
-
+//Fill in previously saved settings for fields
 function restoreSettings(settings) {
     function setChoices(result) {
         console.log(result);
@@ -21,6 +18,7 @@ function restoreSettings(settings) {
     getSettings.then(setChoices, onError);
 }
 
+//Return which theme value to use based on the selected radio button
 function getTheme() {
     console.log(document.querySelector("#DARK"));
     if ( document.querySelector("#DARK").checked ) {
@@ -30,6 +28,7 @@ function getTheme() {
     }
 }
 
+//Save the current settings values of input fields
 function handleSettingsChange(event) {
     event.preventDefault();
     browser.storage.sync.set({

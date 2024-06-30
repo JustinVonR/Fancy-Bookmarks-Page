@@ -2,22 +2,11 @@
     "manifest_version": 2,
     "name": "Fancy Bookmarks Page",
     "version": "0.1",
-    "description": "Adds a full page bookmark browser with background images, decorative tabs, and more.",
+    "description": "Adds a full page bookmark browser with user customizable color schemes.",
     "icons": {
-        "48": "Icons/browser-action-64.svg"
+        "48":"Icons/extension-icon.svg",
+        "96":"Icons/extension-icon.svg"
     },
-    "theme_icons": [
-        {
-            "light": "Icons/browser-action-64-dark.svg",
-            "dark": "Icons/browser-action-64.svg",
-            "size": 48
-        },
-        {
-            "light": "Icons/browser-action-64-dark.svg",
-            "dark": "Icons/browser-action-64.svg",
-            "size": 96
-        }
-    ],
     "permissions": [
         "bookmarks",
         "storage"

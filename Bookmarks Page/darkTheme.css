@@ -40,6 +40,11 @@ div.header-text {
   cursor: default;
 }
 
+.gear-icon {
+  width: 50px;
+  height: 50px;
+}
+
 nav {
   grid-column: 1;
   grid-row: 2;
@@ -94,11 +99,6 @@ div.link:hover {
 
 a {
   text-decoration: none;
-}
-
-.gear-icon {
-  width: 50px;
-  height: 50px;
 }
 
 nav, header {

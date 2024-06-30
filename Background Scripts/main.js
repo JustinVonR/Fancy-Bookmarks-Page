@@ -1,3 +1,4 @@
+//Create browser action button to open bookmark viewer
 browser.browserAction.onClicked.addListener(() => {
     let creating = browser.tabs.create({
       url: "Bookmarks Page/index.html",
@@ -13,6 +14,7 @@ browser.browserAction.onClicked.addListener(() => {
     creating.then(onCreated, onError);
   });
 
+//Set default settings in sync storage if they have not yet been set so that the page doesn't appear plain when first loaded.
 function setDefaults(settings) {
   if (typeof settings.theme === 'undefined' || typeof settings.accent === 'undefined' || typeof settings.bgColor === 'undefined') {
     console.log("setting up default settings");
