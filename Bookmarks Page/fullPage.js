@@ -28,7 +28,7 @@ async function loadThemeSettings() {
             .usr-accent-text:hover {color: ${settings.accentHover};}
         `;
         document.head.appendChild(userStyles);
-        document.querySelector(".gear").src = `gear${iconThemePostfix}.svg`;
+        document.querySelector(".gear").src = `../Icons/gear${iconThemePostfix}.svg`;
     } catch (exception) {
         console.log(`Error while loading user color settings: ${exception}`);
     }
@@ -66,7 +66,7 @@ async function displaySubfolders(currNode, currNodeChildren) {
             let node = await browser.bookmarks.get(currTreePos[i]);
             console.log("Node Processed for Title:");
             console.log(node);
-            headerText.innerHTML += node[0].title + `&nbsp;&nbsp;<img src=\"arrow-right${iconThemePostfix}-32.svg\" width=\"20px\" alt=\"Settings\" title=\"Settings\"/>&nbsp;&nbsp;`;
+            headerText.innerHTML += node[0].title + `&nbsp;&nbsp;<img src=\"../Icons/arrow-right${iconThemePostfix}-32.svg\" width=\"20px\" alt=\"Settings\" title=\"Settings\"/>&nbsp;&nbsp;`;
         }
     }
     headerText.innerHTML += currNode.title;
@@ -77,7 +77,7 @@ async function displaySubfolders(currNode, currNodeChildren) {
     if (currTreePos.length > 1) {
         backDiv = document.createElement("div");
         backDiv.className = "nav usr-accent-bg back";
-        backDiv.innerHTML = `<img src=\"arrow-left-dark-32.svg\" width=\"20px\" alt=\"Settings\" title=\"Settings\"/>&nbsp;&nbsp;Back`;
+        backDiv.innerHTML = `<img src=\"../Icons/arrow-left-dark-32.svg\" width=\"20px\" alt=\"Settings\" title=\"Settings\"/>&nbsp;&nbsp;Back`;
         nav.appendChild(backDiv);
         backDiv.addEventListener('click', function() {
             currTreePos.pop();
