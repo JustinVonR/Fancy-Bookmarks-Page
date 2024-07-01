@@ -38,6 +38,7 @@ div.header-btn {
 div.header-text {
   border: none;
   cursor: default;
+  padding-left: 0.6em;
 }
 
 .gear-icon {
@@ -52,6 +53,10 @@ nav {
   flex-direction: column;
   z-index: 1;
   height: 100%;
+}
+
+nav div {
+  padding-left: 0.6em;
 }
 
 .back {
