@@ -44,6 +44,7 @@ async function displayBookmarks(currNodeChildren) {
             newTile = document.createElement("div");
             newSpan = document.createElement("span");
             newLink.href = currNodeChildren[i].url;
+            newSpan.className = "link";
             newLink.target = "_blank";
             newSpan.innerHTML = currNodeChildren[i].title;
             newTile.appendChild(newSpan);
