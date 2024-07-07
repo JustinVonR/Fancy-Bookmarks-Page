@@ -62,3 +62,7 @@ select {
 select:hover {
     background-color: #2e2c38;
 }
+
+#save-btn {
+    margin-bottom: 1em;
+}

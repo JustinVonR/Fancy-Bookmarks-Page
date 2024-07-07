@@ -1,7 +1,6 @@
 //Fill in previously saved settings for fields
 function restoreSettings(settings) {
     function setChoices(result) {
-        console.log(result);
         let theme = result.theme;
         document.querySelector(`#${theme}`).checked = true;
         document.querySelector("#accentColorPicker").value = result.accent;
@@ -11,7 +10,7 @@ function restoreSettings(settings) {
     }
 
     function onError(error) {
-        console.log(`Error: ${error}`);
+        console.log(`Error while restoring settings: ${error}`);
     }
 
     let getSettings = browser.storage.sync.get();
@@ -20,7 +19,6 @@ function restoreSettings(settings) {
 
 //Return which theme value to use based on the selected radio button
 function getTheme() {
-    console.log(document.querySelector("#DARK"));
     if ( document.querySelector("#DARK").checked ) {
         return "DARK";
     } else {
