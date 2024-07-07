@@ -96,14 +96,16 @@ div.link {
     height: 190px;
     border-radius: 15%;
     transition: 0.3s;
-    align-content: center;
     text-decoration: none;
-    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     box-sizing: border-box;
     padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 div.link:hover {
