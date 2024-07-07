@@ -4,17 +4,27 @@ let iconThemePostfix = "";
 /* Gets settings for user selected colors from sync storage and applies stylesheets for the user's colors. */
 async function loadThemeSettings() {
     try {
+        //Clear existing stylesheet if it already exists
+        if (document.querySelector("style") != null) {
+            document.querySelector("style").remove();
+        }
         //Get the relevant settings from browser storage
         let settings = await browser.storage.sync.get(["theme","accent","bgColor","accentHover"]);
-        //Apply the correct stylesheet for the selected theme:
-        let stylesheet = document.createElement("link");
-        stylesheet.rel = "stylesheet";
-        stylesheet.type = "text/css";
+        //Apply the correct stylesheet for the selected theme
+        let stylesheet = document.querySelector("link");
+        //Create new stylesheet link only if one doesn't already exist
+        if (stylesheet == null) {
+            stylesheet = document.createElement("link");
+            stylesheet.rel = "stylesheet";
+            stylesheet.type = "text/css";
+        }
+        //Set the correct stylesheet file based on selected theme
         if (settings.theme == "DARK") {
             stylesheet.href = "darkTheme.css";
             iconThemePostfix = "-dark";
         } else {
             stylesheet.href = "lightTheme.css";
+            iconThemePostfix = "";
         }
         document.head.appendChild(stylesheet);
 
@@ -28,7 +38,15 @@ async function loadThemeSettings() {
             .usr-accent-text:hover {color: ${settings.accentHover};}
         `;
         document.head.appendChild(userStyles);
+
+        //Set svg color of gear icon for light or dark theme
         document.querySelector(".gear").src = `../Icons/gear${iconThemePostfix}.svg`;
+
+        //Set svg color of and file path arrows that already exist for light or dark theme
+        let filePathArrows = document.querySelectorAll(".filePathImg");
+        console.log(filePathArrows);
+        filePathArrows.forEach((arrow) => arrow.src = `../Icons/arrow-right${iconThemePostfix}-32.svg`);
+
     } catch (exception) {
         console.log(`Error while loading user color settings: ${exception}`);
     }
@@ -40,16 +58,19 @@ async function displayBookmarks(currNodeChildren) {
     linksDiv.innerHTML = '';
     for (i = 0; i < currNodeChildren.length; i++) {
         if (currNodeChildren[i].type == "bookmark") {
-            newLink = document.createElement("a");
-            newTile = document.createElement("div");
             newSpan = document.createElement("span");
-            newLink.href = currNodeChildren[i].url;
             newSpan.className = "link";
-            newLink.target = "_blank";
             newSpan.innerHTML = currNodeChildren[i].title;
-            newTile.appendChild(newSpan);
+
+            newTile = document.createElement("div");
             newTile.className = "link usr-accent-text";
+            newTile.appendChild(newSpan);
+
+            newLink = document.createElement("a");
+            newLink.href = currNodeChildren[i].url;
+            newLink.target = "_blank";
             newLink.appendChild(newTile);
+
             linksDiv.appendChild(newLink);
         }
     }
@@ -67,7 +88,7 @@ async function displaySubfolders(currNode, currNodeChildren) {
             let node = await browser.bookmarks.get(currTreePos[i]);
             console.log("Node Processed for Title:");
             console.log(node);
-            headerText.innerHTML += node[0].title + `&nbsp;&nbsp;<img src=\"../Icons/arrow-right${iconThemePostfix}-32.svg\" width=\"20px\" alt=\"Settings\" title=\"Settings\"/>&nbsp;&nbsp;`;
+            headerText.innerHTML += node[0].title + `&nbsp;&nbsp;<img src=\"../Icons/arrow-right${iconThemePostfix}-32.svg\" width=\"20px\" alt=\"Settings\" title=\"Settings\" class=\"filePathImg\"/>&nbsp;&nbsp;`;
         }
     }
     headerText.innerHTML += currNode.title;
@@ -104,14 +125,25 @@ async function displaySubfolders(currNode, currNodeChildren) {
 
 /* Loads the browser's bookmark tree and calls for its display on the page */
 async function loadBookmarks() {
-    try {
-        let currNode = await browser.bookmarks.get(currTreePos[currTreePos.length - 1]);
-        let currNodeChildren = await browser.bookmarks.getChildren(currTreePos[currTreePos.length - 1]);
-        currNode = currNode[0];
-        displayBookmarks(currNodeChildren);
-        displaySubfolders(currNode, currNodeChildren);
-    } catch (e) {
-        console.log(`Error while loading and displaying bookmarks: ${e}`);
+    let success = false;
+    //This loop attempts to get details for the last folder but steps back up the tree
+    //if an error occurs. This behaviour attempts to ensure that if a folder is deleted
+    //the site will refresh to the next lowest folder that still exists.
+    while (currTreePos.length >= 1 && !success) {
+        try {
+            let currNode = await browser.bookmarks.get(currTreePos[currTreePos.length - 1]);
+            let currNodeChildren = await browser.bookmarks.getChildren(currTreePos[currTreePos.length - 1]);
+            currNode = currNode[0];
+            displayBookmarks(currNodeChildren);
+            displaySubfolders(currNode, currNodeChildren);
+            success = true;
+        } catch (e) {
+            currTreePos.pop();
+            if (currTreePos.length >= 1) {
+                continue;
+            }
+            console.log(`Error while loading and displaying bookmarks: ${e}`);
+        }
     }
 }
 
@@ -166,3 +198,11 @@ document.addEventListener("DOMContentLoaded", loadPageContent);
 
 //Add listener to open extension preferences when the settings button in the header is clicked
 document.querySelector(".settings-btn").addEventListener("click", openSettingsTab);
+
+//Add listeners to refresh page when settings or bookmarks change:
+browser.bookmarks.onCreated.addListener(loadBookmarks);
+browser.bookmarks.onRemoved.addListener(loadBookmarks);
+browser.bookmarks.onChanged.addListener(loadBookmarks);
+browser.bookmarks.onMoved.addListener(loadBookmarks);
+
+browser.storage.onChanged.addListener(loadThemeSettings);

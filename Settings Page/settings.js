@@ -42,3 +42,5 @@ function handleSettingsChange(event) {
 
 document.querySelector("form").addEventListener("submit", handleSettingsChange);
 document.addEventListener("DOMContentLoaded", restoreSettings);
+
+browser.storage.onChanged.addListener(restoreSettings);
