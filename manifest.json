@@ -1,11 +1,11 @@
 {
     "manifest_version": 2,
     "name": "Fancy Bookmarks Page",
-    "version": "0.1",
-    "description": "Adds a full page bookmark browser with user customizable color schemes.",
+    "version": "1.0",
+    "description": "Adds a bookmark browser loaded as a webpage with user customizable color schemes.",
     "icons": {
-        "48":"Icons/extension-icon.svg",
-        "96":"Icons/extension-icon.svg"
+        "48": "Icons/extension-icon.svg",
+        "96": "Icons/extension-icon.svg"
     },
     "permissions": [
         "bookmarks",
