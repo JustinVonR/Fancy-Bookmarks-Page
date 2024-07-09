@@ -34,6 +34,10 @@ async function loadThemeSettings() {
             .usr-accent-text {color: ${settings.accent};} 
             .usr-accent-bg {background-color: ${settings.accent};}
             .usr-background-color {background-color: ${settings.bgColor};}
+            .usr-pic-bg {background-image: url("background.png");
+                         background-position: center;
+                         filter: brightness(100%) blur(0px);
+                         background-size: cover;}
             .usr-accent-bg:hover {background-color: ${settings.accentHover};}
             .usr-accent-text:hover {color: ${settings.accentHover};}
         `;
