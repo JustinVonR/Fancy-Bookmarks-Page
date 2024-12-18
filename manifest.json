@@ -26,6 +26,12 @@
             }
         ]
     },
+    "chrome_url_overrides" : {
+        "newtab": "Bookmarks Page/index.html"
+    },
+    "chrome_settings_overrides" : {
+        "homepage": "Bookmarks Page/index.html"
+    },
     "options_ui": {
         "page": "Settings Page/settings.html",
         "open_in_tab": true

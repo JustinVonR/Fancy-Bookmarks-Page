@@ -14,16 +14,17 @@
             <h4>Theme:</h4>
             <div>
                 <input type="radio" name="theme" value="LIGHT" id="LIGHT" checked="checked">
-                <label for="html">Light</label><br>
+                <label for="html">Light</label><br/>
                 <input type="radio" name="theme" value="DARK" id="DARK">
-                <label for="html">Dark</label><br>
+                <label for="html">Dark</label><br/>
             </div>
             <br/>
-            <h4>Accent Color:</h4><br/>
+            <h4>Accent Color:</h4>
             <div class="accentColorPicker">
                 <input type="color" id="accentColorPicker">
             </div>
-            <h4>Accent Hover Color:</h4><br/>
+            <br/>
+            <h4>Accent Hover Color:</h4>
             <div class="accentColorPicker">
                 <input type="color" id="accentHoverColorPicker">
             </div>
@@ -44,18 +45,30 @@
                 <label for="darkenBG">Darken Background</label>
             </div> -->
             <div class="bgColorPicker" style="display:block;">
-                <h4>Background Color:</h4><br/>
+                <h4>Background Color:</h4>
                 <input type="color" id="bgColorPicker">
             </div>
         </div>
         <div class="settingBlk">
-            <h3>Starting Bookmark Location</h3>
+            <h3>Bookmark Link Settings:</h3>
+            <h4>Default Location:</h4>
             <select name="Starting Location" id="location">
                     <option value="toolbar">Bookmarks Bar</option>
                     <option value="menu">Bookmarks Menu</option>
                     <option value="mobile">Mobile Bookmarks</option>
                     <option value="unfiled">Unfiled Bookmarks</option>
             </select>
+            <br/><br/>
+            <h4>Open Links:</h4>
+            <div>
+                <input type="radio" name="openIn" value="curr" id="curr" checked="checked">
+                <label for="html">In Current Tab</label><br/>
+                <input type="radio" name="openIn" value="new" id="new">
+                <label for="html">In New Tab</label><br/>
+            </div>
+            <br/>
+            By default, the bookmarks page replaces your browser home and new tab pages,<br/>
+            please visit the home section of your main browser settings if you wish to disable this behavior.
         </div>
         <div>
             <button id="save-btn" type="submit">Save Settings</button>

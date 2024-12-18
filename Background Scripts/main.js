@@ -23,9 +23,12 @@ function setDefaults(settings) {
       bgColor: "#16002b",
       accentHover: "#4D3CC9",
       startLocation: "toolbar",
+      openIn: "new",
+      replaceNewTab: true,
     });
   }
 }
+
 
 function onError(error) {
   console.log(`Error while getting settings: ${error}`);
@@ -33,3 +36,22 @@ function onError(error) {
 
 let getSettings = browser.storage.sync.get();
 getSettings.then(setDefaults, onError);
+
+/*
+async function onTabCreation(tab) {
+  console.log("function called");
+  let setting = await browser.storage.sync.get(["replaceNewTab"])
+  if ((tab.url == "about:newtab" || tab.url == "about:blank") && setting.replaceNewTab) {
+    browser.tabs.update(
+      tab.id,
+      { url: "https://youtube.com" }
+    );
+  }
+}
+
+const tabFilter = {
+  properties: ["url"],
+};
+
+browser.tabs.onUpdated.addListener(onTabCreation);
+*/

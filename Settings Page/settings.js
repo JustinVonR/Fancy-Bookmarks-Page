@@ -1,8 +1,10 @@
 //Fill in previously saved settings for fields
 function restoreSettings(settings) {
     function setChoices(result) {
-        let theme = result.theme;
+        var theme = result.theme;
+        var openIn = result.openIn;
         document.querySelector(`#${theme}`).checked = true;
+        document.querySelector(`#${openIn}`).checked = true;
         document.querySelector("#accentColorPicker").value = result.accent;
         document.querySelector("#bgColorPicker").value = result.bgColor;
         document.querySelector("#accentHoverColorPicker").value = result.accentHover;
@@ -15,6 +17,15 @@ function restoreSettings(settings) {
 
     let getSettings = browser.storage.sync.get();
     getSettings.then(setChoices, onError);
+}
+
+//Return which link opening radio value to use based on the selected button
+function getLinkOpen() {
+    if ( document.querySelector("#curr").checked ) {
+        return "curr";
+    } else {
+        return "new";
+    }
 }
 
 //Return which theme value to use based on the selected radio button
@@ -35,6 +46,7 @@ function handleSettingsChange(event) {
         bgColor: document.querySelector("#bgColorPicker").value,
         accentHover: document.querySelector("#accentHoverColorPicker").value,
         startLocation: document.querySelector("#location").value,
+        openIn: getLinkOpen(),
     });
 }
 

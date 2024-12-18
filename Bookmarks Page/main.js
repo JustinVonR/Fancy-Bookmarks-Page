@@ -1,6 +1,12 @@
 let currTreePos = [];
 let iconThemePostfix = "";
 
+/* Deletes a bookmark when its delete button is clicked */
+async function deleteBookmark(bookmarkNode) {
+    browser.bookmarks.remove(bookmarkNode.id);
+    loadBookmarks();
+}
+
 /* Gets settings for user selected colors from sync storage and applies stylesheets for the user's colors. */
 async function loadThemeSettings() {
     try {
@@ -59,6 +65,7 @@ async function loadThemeSettings() {
 /* Adds all of the bookmarks within currNodeChildren to the page as clickable divs */
 async function displayBookmarks(currNodeChildren) {
     linksDiv = document.querySelector("div.links");
+    let openSetting = await browser.storage.sync.get(["openIn"]);
     while (linksDiv.firstChild) {
         linksDiv.removeChild(linksDiv.lastChild);
     }
@@ -76,14 +83,25 @@ async function displayBookmarks(currNodeChildren) {
             linkIcon.title = "Settings";
             linkIcon.className = "link-icon";
 
+            let xSpan = document.createElement("span");
+            xSpan.className = "delete-x";
+            newSpan.appendChild(document.createTextNode("X"));
+
+            let deleteBtn = document.createElement("div");
+            deleteBtn.className = "delete-btn";
+            deleteBtn.appendChild;
+
             let newTile = document.createElement("div");
             newTile.className = "link usr-accent-text";
             newTile.appendChild(linkIcon);
             newTile.appendChild(newSpan);
+            newTile.appendChild(deleteBtn);
 
             let newLink = document.createElement("a");
             newLink.href = currNodeChildren[i].url;
-            newLink.target = "_blank";
+            if (openSetting.openIn == "new") {
+                newLink.target = "_blank";
+            }
             newLink.appendChild(newTile);
 
             linksDiv.appendChild(newLink);
@@ -179,6 +197,7 @@ async function loadBookmarks() {
 
 /* Sets the first two bookmark object ids to reach the user's selected start folder in the bookmark tree */
 async function setStartLocation() {
+    currTreePos = [];
     let startLocation = await browser.storage.sync.get("startLocation");
     startLocation = startLocation.startLocation;
     bookmarkTree = await browser.bookmarks.getTree();
@@ -234,4 +253,4 @@ browser.bookmarks.onRemoved.addListener(loadBookmarks);
 browser.bookmarks.onChanged.addListener(loadBookmarks);
 browser.bookmarks.onMoved.addListener(loadBookmarks);
 
-browser.storage.onChanged.addListener(loadThemeSettings);
+browser.storage.onChanged.addListener(loadPageContent);
