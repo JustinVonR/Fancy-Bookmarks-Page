@@ -51,8 +51,14 @@ div.link {
 }
 
 div.delete-btn {
-    background-color: #ff7171;
+    background-color: #3f3f3f;
     color: #ffffff;
+}
+
+div.delete-btn:hover {
+    background-color: #505050;
+    color: #ffffff;
+
 }
 
 div.link:hover {

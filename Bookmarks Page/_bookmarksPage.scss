@@ -110,30 +110,32 @@ div.link {
 
 
 div.delete-btn {
-    width: 21%;
-    height: 21%;
+    width: 20pt;
+    height: 20pt;
     border-radius:50%;
     position: relative;
-    left: 55%;
-    top: -102%;
-    z-index: 10;
-    display: none;
-    transition: 0.6s;
-    margin-bottom: -21%;
-    visibility: hidden;
+    left: 89%;
+    top: -192px;
+    z-index: 5;
+    transition: 0.3s;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+div.delete-btn:hover {
+    cursor: pointer;
 }
 
 .delete-x {
     position: inherit;
-    left: 0px;
+    top: 8%;
+    z-index: 6;
+    font-size: 15pt;
 }
 
 div.link:hover {
     cursor: pointer;
-}
-
-div.link:hover div.delete-btn{
-    visibility: visible;
 }
 
 span.linkTitle {

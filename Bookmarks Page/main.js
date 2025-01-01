@@ -1,5 +1,6 @@
 let currTreePos = [];
 let iconThemePostfix = "";
+let edit = true;
 
 /* Deletes a bookmark when its delete button is clicked */
 async function deleteBookmark(bookmarkNode) {
@@ -83,20 +84,11 @@ async function displayBookmarks(currNodeChildren) {
             linkIcon.title = "Settings";
             linkIcon.className = "link-icon";
 
-            let xSpan = document.createElement("span");
-            xSpan.className = "delete-x";
-            newSpan.appendChild(document.createTextNode("X"));
-
-            let deleteBtn = document.createElement("div");
-            deleteBtn.className = "delete-btn";
-            deleteBtn.appendChild;
-
             let newTile = document.createElement("div");
             newTile.className = "link usr-accent-text";
             newTile.appendChild(linkIcon);
             newTile.appendChild(newSpan);
-            newTile.appendChild(deleteBtn);
-
+            
             let newLink = document.createElement("a");
             newLink.href = currNodeChildren[i].url;
             if (openSetting.openIn == "new") {
@@ -104,7 +96,22 @@ async function displayBookmarks(currNodeChildren) {
             }
             newLink.appendChild(newTile);
 
-            linksDiv.appendChild(newLink);
+            let linkContainer = document.createElement("div");
+            linkContainer.appendChild(newLink);
+
+            if (edit) {
+                let xSpan = document.createElement("span");
+                xSpan.className = "delete-x";
+                xSpan.appendChild(document.createTextNode("X"));
+
+                let deleteBtn = document.createElement("div");
+                deleteBtn.className = "delete-btn";
+                deleteBtn.appendChild(xSpan);
+
+                linkContainer.appendChild(deleteBtn);
+            }
+
+            linksDiv.appendChild(linkContainer);
         }
     }
 }
