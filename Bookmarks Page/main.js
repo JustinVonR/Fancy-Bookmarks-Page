@@ -3,8 +3,8 @@ let iconThemePostfix = "";
 let edit = true;
 
 /* Deletes a bookmark when its delete button is clicked */
-async function deleteBookmark(bookmarkNode) {
-    browser.bookmarks.remove(bookmarkNode.id);
+async function deleteBookmark(bookmarkNodeId) {
+    browser.bookmarks.remove(bookmarkNodeId);
     loadBookmarks();
 }
 
@@ -107,6 +107,12 @@ async function displayBookmarks(currNodeChildren) {
                 let deleteBtn = document.createElement("div");
                 deleteBtn.className = "delete-btn";
                 deleteBtn.appendChild(xSpan);
+
+                let bookmarkId = currNodeChildren[i].id;
+
+                deleteBtn.addEventListener("click", function(){
+                    deleteBookmark(bookmarkId);
+                });
 
                 linkContainer.appendChild(deleteBtn);
             }
