@@ -212,6 +212,19 @@ async function displaySubfolders(currNode, currNodeChildren) {
             newDiv = document.createElement("div");
             newDiv.className = "nav";
             newDiv.appendChild(document.createTextNode(currNodeChildren[i].title));
+
+            if (edit) {
+                let xSpan = document.createElement("span");
+                xSpan.className = "";
+                xSpan.appendChild(document.createTextNode("X"));
+
+                let folderDeleteBtn = document.createElement("div");
+                folderDeleteBtn.className = "folder-del";
+                folderDeleteBtn.appendChild(xSpan);
+
+                newDiv.appendChild(folderDeleteBtn);
+            }
+
             nav.appendChild(newDiv);
             newDiv.id = currNodeChildren[i].id;
             newDiv.addEventListener('click', function(event) {

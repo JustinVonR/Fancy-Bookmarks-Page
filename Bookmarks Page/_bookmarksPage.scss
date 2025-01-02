@@ -69,6 +69,16 @@ nav div {
     color: white;
 }
 
+div.folder-del {
+    position: relative;
+    float: right;
+    background-color: black;
+    border-radius: 50%;
+    width: 15pt;
+    height: 15pt;
+    font-size: 10pt;
+}
+
 div.link-region {
     padding: 3%;
     overflow: scroll;
