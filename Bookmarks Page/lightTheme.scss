@@ -72,11 +72,25 @@ div.link:hover {
 }
 
 div.action {
-    background-color: $tile-bg;
     box-shadow: $tile-shadow;
 }
 
 div.action:hover {
     box-shadow: $tile-shadow-hover;
+}
+
+.inactive {
+    background-color: $tile-bg;
+}
+
+.inactive:hover {
     background-color: $tile-bg-hover;
+}
+
+.activated {
+    background-color: #43c56e;
+}
+
+.activated:hover {
+    background-color: #208842;
 }

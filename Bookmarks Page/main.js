@@ -8,6 +8,12 @@ async function deleteBookmark(bookmarkNodeId) {
     loadBookmarks();
 }
 
+function toggleEdit() {
+    edit = !edit;
+    console.log("Edit toggled");
+    loadBookmarks();
+}
+
 /* Gets settings for user selected colors from sync storage and applies stylesheets for the user's colors. */
 async function loadThemeSettings() {
     try {
@@ -121,16 +127,34 @@ async function displayBookmarks(currNodeChildren) {
         }
     }
     let editAction = document.createElement("div");
-    editAction.className = "action";
+    editAction.className = "action inactive";
+
+    let editIcon = document.createElement("img");
+    editIcon.src = `../Icons/edit${iconThemePostfix}.svg`;
+    editIcon.style.width = "40px";
+    editIcon.style.height = "40px";
+    editIcon.alt = "Edit Links";
+    editIcon.title = "Edit Links";
+    editIcon.className = "edit-icon";
+
+    editAction.appendChild(editIcon);
+
+    if(edit) {
+        editIcon.src = `../Icons/check${iconThemePostfix}.svg`;
+        editAction.className = "action activated";
+    }
+    
+    editAction.addEventListener("click", toggleEdit);
 
     let actionsDiv = document.createElement("div");
-    actionsDiv.className = "actions";
+    actionsDiv.className = "actions"; 
+
     actionsDiv.appendChild(editAction);
     linksDiv.appendChild(actionsDiv);
 
     for (i = 0; i < 3; i++) {
         let newAction = document.createElement("div");
-        newAction.className = "action";
+        newAction.className = "action inactive";
 
         actionsDiv.appendChild(newAction);
     }

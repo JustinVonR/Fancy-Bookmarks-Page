@@ -146,6 +146,7 @@ a {
 div.actions {
   width: 100px;
   height: 100px;
+  margin: 45px;
   display: grid;
   grid-template-rows: auto auto;
   grid-template-columns: auto auto;
@@ -154,8 +155,21 @@ div.actions {
 }
 
 div.action {
+  width: 48px;
+  height: 48px;
   border-radius: 20%;
   transition: 0.3s;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div.action:hover {
+  cursor: pointer;
+}
+
+div.action img {
+  position: relative;
+  top: 4px;
 }
 
 nav, header {
@@ -201,11 +215,25 @@ div.link:hover {
 }
 
 div.action {
-  background-color: #fcfcfc;
   box-shadow: 2px 2px 2px 2px rgba(39, 39, 39, 0.5019607843);
 }
 
 div.action:hover {
   box-shadow: 1px 1px 1px 1px rgba(39, 39, 39, 0.5019607843);
+}
+
+.inactive {
+  background-color: #fcfcfc;
+}
+
+.inactive:hover {
   background-color: #dbdbdb;
+}
+
+.activated {
+  background-color: #43c56e;
+}
+
+.activated:hover {
+  background-color: #208842;
 }/*# sourceMappingURL=lightTheme.css.map */

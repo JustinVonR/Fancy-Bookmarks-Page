@@ -150,6 +150,7 @@ a {
 div.actions {
     width: 100px;
     height: 100px;
+    margin: 45px;
     display: grid;
     grid-template-rows: auto auto;
     grid-template-columns: auto auto;
@@ -158,6 +159,19 @@ div.actions {
 }
 
 div.action {
+    width: 48px;
+    height: 48px;
     border-radius: 20%;
     transition: 0.3s;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.action:hover {
+    cursor: pointer;
+}
+
+div.action img {
+    position: relative;
+    top: 4px;
 }
