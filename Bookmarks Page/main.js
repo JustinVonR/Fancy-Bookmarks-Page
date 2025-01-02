@@ -120,6 +120,20 @@ async function displayBookmarks(currNodeChildren) {
             linksDiv.appendChild(linkContainer);
         }
     }
+    let editAction = document.createElement("div");
+    editAction.className = "action";
+
+    let actionsDiv = document.createElement("div");
+    actionsDiv.className = "actions";
+    actionsDiv.appendChild(editAction);
+    linksDiv.appendChild(actionsDiv);
+
+    for (i = 0; i < 3; i++) {
+        let newAction = document.createElement("div");
+        newAction.className = "action";
+
+        actionsDiv.appendChild(newAction);
+    }
 }
 
 /* Sets the path text in the header based on currNode and displays all of the subfolders of currNodeChildren in the nav of the page */

@@ -1,9 +1,13 @@
 @import "_bookmarksPage.scss";
 
-$button-border-color: #dadada;
+$button-border-color: #b3b3b3;
+$tile-bg: #fcfcfc;
+$tile-bg-hover: #dbdbdb;
+$tile-shadow-hover: 1px 1px 1px 1px #27272780;
+$tile-shadow: 2px 2px 2px 2px #27272780;
 
 %bar {
-    background-color: #ffffff;
+    background-color: $tile-bg;
     box-shadow: 0px 0px 3px 3px #00000080;
 }
 
@@ -12,7 +16,7 @@ $button-border-color: #dadada;
 }
 
 %bar-btn-hover {
-    background-color: #c0c0c0;
+    background-color: $tile-bg-hover;
 }
 
 header {
@@ -46,16 +50,33 @@ nav div:hover {
 }
 
 div.link {
-    background-color: #FFFFFF;
-    box-shadow: 2px 2px 2px 2px #00000080;
+    background-color: $tile-bg;
+    box-shadow: $tile-shadow;
 }
 
 div.delete-btn {
-    background-color: #a13333;
-    color: #FFFFFF;
+    background-color: #d8d8d8;
+    color: #0f0f0f;
+    border: 1px solid $button-border-color;
+}
+
+div.delete-btn:hover {
+    background-color: #b6b6b6;
+    color: #0f0f0f;
+
 }
 
 div.link:hover {
-    background-color: #dddddd;
-    box-shadow: 1px 1px 1px 1px #00000080;
+    background-color: $tile-bg-hover;
+    box-shadow: $tile-shadow-hover;
+}
+
+div.action {
+    background-color: $tile-bg;
+    box-shadow: $tile-shadow;
+}
+
+div.action:hover {
+    box-shadow: $tile-shadow-hover;
+    background-color: $tile-bg-hover;
 }

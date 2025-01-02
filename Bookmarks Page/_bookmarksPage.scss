@@ -115,12 +115,13 @@ div.delete-btn {
     border-radius:50%;
     position: relative;
     left: 89%;
-    top: -192px;
+    top: -170px;
     z-index: 5;
     transition: 0.3s;
     text-align: center;
     align-items: center;
     justify-content: center;
+    margin-top: -20pt;
 }
 
 div.delete-btn:hover {
@@ -144,4 +145,19 @@ span.linkTitle {
 
 a {
     text-decoration: none;
+}
+
+div.actions {
+    width: 100px;
+    height: 100px;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+    grid-column-gap: 6px;
+    grid-row-gap: 6px;
+}
+
+div.action {
+    border-radius: 20%;
+    transition: 0.3s;
 }

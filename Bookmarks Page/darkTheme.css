@@ -111,12 +111,13 @@ div.delete-btn {
   border-radius: 50%;
   position: relative;
   left: 89%;
-  top: -192px;
+  top: -170px;
   z-index: 5;
   transition: 0.3s;
   text-align: center;
   align-items: center;
   justify-content: center;
+  margin-top: -20pt;
 }
 
 div.delete-btn:hover {
@@ -142,8 +143,23 @@ a {
   text-decoration: none;
 }
 
+div.actions {
+  width: 100px;
+  height: 100px;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+  grid-column-gap: 6px;
+  grid-row-gap: 6px;
+}
+
+div.action {
+  border-radius: 20%;
+  transition: 0.3s;
+}
+
 nav, header {
-  background-color: #2e2e2e;
+  background-color: #242424;
   box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.5019607843);
 }
 
@@ -152,7 +168,7 @@ div.header-btn, div.header-text, nav div {
 }
 
 nav div:hover, div.header-btn:hover {
-  background-color: #222222;
+  background-color: #1b1b1b;
 }
 
 div.header-btn {
@@ -171,14 +187,25 @@ div.link {
 div.delete-btn {
   background-color: #3f3f3f;
   color: #ffffff;
+  border: 1px solid #202020;
 }
 
 div.delete-btn:hover {
-  background-color: #505050;
+  background-color: #2e2e2e;
   color: #ffffff;
 }
 
 div.link:hover {
   background-color: #1b1b1b;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5019607843);
+}
+
+div.action {
+  background-color: #242424;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5019607843);
+}
+
+div.action:hover {
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5019607843);
+  background-color: #1b1b1b;
 }/*# sourceMappingURL=darkTheme.css.map */
